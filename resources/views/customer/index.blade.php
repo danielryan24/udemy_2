@@ -41,9 +41,9 @@
                                 <th scope="col">#</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
-                                <th scope="col">Date of Birth</th>
                                 <th scope="col">Phone Number</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Bank Account Number</th>
                                 <th scope="col">About</th>
                                 <th scope="col">Action</th>
                             </tr>
