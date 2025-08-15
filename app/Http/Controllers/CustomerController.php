@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerStoreRequest;
 use App\Models\Customer;
+use Faker\Core\File as CoreFile;
 use Illuminate\Http\Request;
+use File;
 
 class CustomerController extends Controller
 {
@@ -54,9 +56,9 @@ class CustomerController extends Controller
         $customer->about = $request->about;
         $customer->save();
 
-        dd($customer);
-        return redirect()->route('home');
-
+        // dd($customer);
+        $customers = Customer::all();
+        return view('customer.index', compact('customers'));
         
 
     }
@@ -67,9 +69,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(string $id)
     {
-        
+        $customer = Customer::findOrFail($id);
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -78,9 +81,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -90,9 +94,31 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerStoreRequest $request, string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        // dd($request->all());
+
+        if($request->hasFile('image')){
+            File::delete(public_path($customer->image));
+            $image = $request->file('image');
+            $fileName = $image->store('', 'public');
+            $filePath = '/uploads/'.$fileName;
+            $customer->image = $filePath;
+        }
+
+        $customer->first_name = $request->first_name;
+        $customer->last_name = $request->last_name;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
+        $customer->bank_account_number = $request->bank_account_number;
+        $customer->about = $request->about;
+        $customer->save();
+
+        // dd($customer);
+
+        $customers = Customer::all();
+            return view('customer.index', compact('customers'));
     }
 
     /**
@@ -101,8 +127,11 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+        File::delete(public_path($customer->image));
+        $customer->delete();
+        return redirect()->route('customers.index');
     }
 }

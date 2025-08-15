@@ -22,19 +22,21 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <form action="{{ route('customers.store') }}" method="POST">
+                        <form action="{{ route('customers.update', $customer->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="col-md-12 mb-3">
+                                <img style="width:100px" src="{{ asset($customer->image) }}" alt="">
                                 <div class="form-group">
                                     <label for="">Image</label>
-                                    <input type="file" class="form-control" name="image" value="{{ old('image') }}">
+                                    <input type="file" class="form-control" name="image">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="">First Name</label>
                                     <input type="text" class="form-control" name="first_name"
-                                        value="{{ old('first_name') }}">
+                                        value="{{ $customer->first_name }}">
                                 </div>
                             </div>
                             <div class="col-md-6
@@ -42,19 +44,19 @@
                                 <div class="form-group">
                                     <label for="">Last Name</label>
                                     <input type="text" class="form-control"
-                                        name="last_name"value="{{ old('last_name') }}">
+                                        name="last_name"value="{{ $customer->last_name }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="">Email</label>
-                                    <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                    <input type="email" class="form-control" name="email" value="{{ $customer->email }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="">Phone</label>
-                                    <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+                                    <input type="text" class="form-control" name="phone" value="{{ $customer->phone }}">
                                 </div>
                             </div>
 
@@ -62,19 +64,19 @@
                                 <div class="form-group">
                                     <label for="">Bank Account Number</label>
                                     <input type="text" class="form-control" name="bank_account_number"
-                                        value="{{ old('bank_account_number') }}">
+                                        value="{{ $customer->bank_account_number }}">
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="">About</label>
-                                    <textarea name="about" class="form-control">{{ old('about') }}</textarea>
+                                    <textarea name="about" class="form-control">{{ $customer->about }}</textarea>
                                 </div>
                             </div>                        
                             <div class="col-md-12
                                         mb-3">
                                     <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i>
-                                        Create</button>
+                                        Update</button>
                                 </div>
 
                             </form>

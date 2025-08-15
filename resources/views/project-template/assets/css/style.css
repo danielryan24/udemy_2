@@ -1,5 +1,5 @@
 .profile-head {
-    transform: translateY(5rem)
+    transform: translateY(5rem);
 }
 
 .cover {
@@ -7,13 +7,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 250px;
+    background-color: black !important;
 }
 
 body {
     min-height: 100vh;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 .media-body {
     margin-left: 20px;
-  }
+}
