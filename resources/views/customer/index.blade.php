@@ -13,10 +13,10 @@
                                 Customer</a>
                         </div>
                         <div class="col-md-8">
-                            <form action="">
+                            <form action="{{ route('customers.index') }}" method="GET">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Search anything..."
-                                        aria-describedby="button-addon2">
+                                        aria-describedby="button-addon2" name="search" value="{{ request()->search }}">
                                     <button class="btn btn-outline-secondary" type="submit"
                                         id="button-addon2">Search</button>
                                 </div>
@@ -26,8 +26,11 @@
 
                             <div class="input-group mb-3">
                                 <select class="form-select" name="" id="">
-                                    <option value="">Newest to Old</option>
-                                    <option value="">Old to Newest</option>
+                                    <form action="{{ route('customers.index') }}" method="GET" class="form-order">
+
+                                        <option value="desc">Newest to Oldest</option>
+                                        <option value="asc">Oldest to Newest</option>
+                                    </form>
                                 </select>
                             </div>
                         </div>
@@ -35,7 +38,7 @@
 
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" style="border: 1px solid #dddddd">
+                    <table class="table table-bordered" style="border: 1px solid #dddddd" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -79,4 +82,10 @@
             </div>
         </div>
     </div>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let table = new DataTable('#myTable');
+    });
+</script>
 @endsection
